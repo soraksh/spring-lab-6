@@ -1,25 +1,41 @@
 package com.luxoft.springcore.objects;
 
+import com.luxoft.springcore.travel.Connection;
+import com.luxoft.springcore.travel.TravellingOpportunities;
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class UsualPerson implements Person {
     private int id;
 
     private String name;
     private City city;
     private int distanceTravelled = 0;
-    
-	private int age;
-	private boolean isProgrammer;
-    
+
+    private int age;
+    private boolean isProgrammer;
+
+    private TravellingOpportunities opportunities;
+
+    public UsualPerson() {
+
+    }
+
     public UsualPerson(String name, int age, City city) {
-    	this.name = name;
-    	this.age = age;
-    	this.city = city;
+        this.name = name;
+        this.age = age;
+        this.city = city;
+    }
+
+    public UsualPerson(int id, String name, int age, City city) {
+        this.name = name;
+        this.age = age;
+        this.city = city;
     }
 
     public int getAge() {
-		return age;
-	}
-    
+        return age;
+    }
+
     public void setAge(int age) {
         this.age = age;
     }
@@ -39,14 +55,14 @@ public class UsualPerson implements Person {
     public void setCountry(City city) {
         this.city = city;
     }
-    
+
     public int getDistanceTravelled() {
-		return distanceTravelled;
-	}
-    
+        return distanceTravelled;
+    }
+
     public void setDistanceTravelled(int distanceTravelled) {
-		this.distanceTravelled = distanceTravelled;
-	}
+        this.distanceTravelled = distanceTravelled;
+    }
 
     public boolean isProgrammer() {
         return isProgrammer;
@@ -64,10 +80,19 @@ public class UsualPerson implements Person {
     public void setId(int id) {
         this.id = id;
     }
-    
-    
+
+    @Autowired
+    public void setOpportunities(TravellingOpportunities opportunities) {
+        this.opportunities = opportunities;
+    }
+
     public void travel(City source, City destination) {
-    	
+        for (Connection connection : opportunities.getConnectionsList()) {
+            if (connection.getSource().equals(source) && connection.getDestination().equals(destination)) {
+                distanceTravelled += connection.getDistance();
+                return;
+            }
+        }
     }
 
     public String toString() {

@@ -5,5 +5,103 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 				http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+	<context:annotation-config/>
+
+	<bean name="russia" class="com.luxoft.springcore.objects.Country">
+		<constructor-arg name="id" value="1"/>
+		<constructor-arg name="name" value="${russia.name}"/>
+		<constructor-arg name="codeName" value="${russia.codeName}"/>
+	</bean>
+	<bean name="bulgaria" class="com.luxoft.springcore.objects.Country">
+		<constructor-arg name="id" value="2"/>
+		<constructor-arg name="name" value="${bulgaria.name}"/>
+		<constructor-arg name="codeName" value="${bulgaria.codeName}"/>
+	</bean>
+	<bean name="austria" class="com.luxoft.springcore.objects.Country">
+		<constructor-arg name="id" value="3"/>
+		<constructor-arg name="name" value="${austria.name}"/>
+		<constructor-arg name="codeName" value="${austria.codeName}"/>
+	</bean>
+	<bean name="poland" class="com.luxoft.springcore.objects.Country">
+		<constructor-arg name="id" value="4"/>
+		<constructor-arg name="name" value="${poland.name}"/>
+		<constructor-arg name="codeName" value="${poland.codeName}"/>
+	</bean>
+
+	<bean name="moscow" class="com.luxoft.springcore.objects.City">
+		<constructor-arg name="id" value="1"/>
+		<constructor-arg name="name" value="{russia.moscow.name}"/>
+		<constructor-arg name="country" ref="russia"/>
+	</bean>
+
+	<bean name="warsaw" class="com.luxoft.springcore.objects.City">
+		<constructor-arg name="id" value="2"/>
+		<constructor-arg name="name" value="{poland.warsaw.name}"/>
+		<constructor-arg name="country" ref="poland"/>
+	</bean>
+
+	<bean name="krakow" class="com.luxoft.springcore.objects.City">
+		<constructor-arg name="id" value="3"/>
+		<constructor-arg name="name" value="{poland.krakow.name}"/>
+		<constructor-arg name="country" ref="poland"/>
+	</bean>
+
+	<bean name="sofia" class="com.luxoft.springcore.objects.City">
+		<constructor-arg name="id" value="4"/>
+		<constructor-arg name="name" value="{bulgaria.sofia.name}"/>
+		<constructor-arg name="country" ref="bulgaria"/>
+	</bean>
+
+	<bean name="vienna" class="com.luxoft.springcore.objects.City">
+		<constructor-arg name="id" value="5"/>
+		<constructor-arg name="name" value="{austria.vienna.name}"/>
+		<constructor-arg name="country" ref="austria"/>
+	</bean>
+
+	<bean name="russianPerson" class="com.luxoft.springcore.objects.UsualPerson">
+		<constructor-arg name="id" value="1"/>
+		<constructor-arg name="name" value="Viktor Ponedelnik"/>
+		<constructor-arg name="age" value="35"/>
+		<constructor-arg name="city" ref="moscow"/>
+	</bean>
+
+	<bean name="bulgarianPerson" class="com.luxoft.springcore.objects.UsualPerson">
+		<constructor-arg name="id" value="2"/>
+		<constructor-arg name="name" value="Emil Kostadinov"/>
+		<constructor-arg name="age" value="37"/>
+		<constructor-arg name="city" ref="sofia"/>
+	</bean>
+
+	<bean name="operatorsBean" class="com.luxoft.springcore.objects.Operators">
+		<property name="ageComparisonTest" value="true"/>
+		<property name="distanceComparisonTest" value="true"/>
+	</bean>
+
+	<bean name="travellingOpportunities" class="com.luxoft.springcore.travel.TravellingOpportunities">
+		<property name="connectionsList">
+			<list>
+				<bean class="com.luxoft.springcore.travel.Connection">
+					<constructor-arg name="source" ref="moscow"/>
+					<constructor-arg name="destination" ref="warsaw"/>
+					<constructor-arg name="distance" value="1130"/>
+				</bean>
+				<bean class="com.luxoft.springcore.travel.Connection">
+					<constructor-arg name="source" ref="warsaw"/>
+					<constructor-arg name="destination" ref="krakow"/>
+					<constructor-arg name="distance" value="256"/>
+				</bean>
+				<bean class="com.luxoft.springcore.travel.Connection">
+					<constructor-arg name="source" ref="sofia"/>
+					<constructor-arg name="destination" ref="vienna"/>
+					<constructor-arg name="distance" value="835"/>
+				</bean>
+				<bean class="com.luxoft.springcore.travel.Connection">
+					<constructor-arg name="source" ref="vienna"/>
+					<constructor-arg name="destination" ref="krakow"/>
+					<constructor-arg name="distance" value="331"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
 				
 </beans>
